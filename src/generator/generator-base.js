@@ -1,7 +1,7 @@
 import BaseScript from '../base-script.js';
 
 
-export default class GeneratorBase extends BaseScript {
+export default class GeneratorBase {
     
     random(low, high) {
         return Math.random() * (high - low) + low

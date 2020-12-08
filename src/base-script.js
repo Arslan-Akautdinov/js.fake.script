@@ -1,5 +1,5 @@
 import * as firebase from 'firebase-admin';
-const firebaseConfig = require("../package-firebase.json");
+const firebaseConfig = require("../lesson-4ae0c-firebase-adminsdk-47sf3-972024d55e.json");
 
 
 export default class BaseScript {

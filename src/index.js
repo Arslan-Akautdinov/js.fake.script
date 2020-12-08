@@ -2,14 +2,37 @@ import { generator } from "./generator/index";
 import { uploader } from "./uploader/index";
 
 
-uploader.categoriesTypes.uploadCategoriesTypeList(["Каналы", "Обсуждения"])
-.then(async (categoriesTypes) => {
-    let imageUrl = "https://via.placeholder.com/150/FFFFFF/808080%20?Text=Digital.com"
-    let categories = generator.categories.generateRandom(10, categoriesTypes, 100, 50, imageUrl);
-    await uploader.categories.uploadCategoryList(categories);
-})
-.catch((err) => {
-    console.log(err);
-})
+// let categoriesType = [
+//     generator.categoriesTypes.generateRandomCategoriesType("Обсуждения"),
+//     generator.categoriesTypes.generateRandomCategoriesType("Каналы")
+// ]
+
+// for (let i = 0; i < categoriesType.length; i ++)
+// {
+//     uploader.categoriesTypes.uploadCategoriesType(categoriesType[i])
+//     .then( async (categoriesTypeUid) => {
+//         await uploader.categories.uploadCategoryList(
+//             generator.categories.generateRandomCategories(5 + i),
+//             categoriesTypeUid
+//         )
+//     })
+//     .catch((err) => {
+//         console.log(err)
+//     });
+// }
+
+let clubs = generator.clubs.generateRandomClubList(
+    20,
+    "NquW6TOXO5A2d1ORl8vQ",
+    "963XCOgP8jIB3UD3q1Pk",
+    [
+        "4psjneHMgUo1HMg2mPnX",
+        "UiJMC5HUhGdeitVkBBT4"
+    ]
+)
+
+console.log(clubs);
+
+uploader.clubs.uploadClubList(clubs);
 
 

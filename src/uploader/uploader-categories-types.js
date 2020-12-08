@@ -1,5 +1,4 @@
 import { classToPlain } from "class-transformer";
-import CategoryType from "../models/category-type";
 import UploaderBase from "./uploader-base";
 
 export default class UploaderCategoriesTypes extends UploaderBase
@@ -9,15 +8,15 @@ export default class UploaderCategoriesTypes extends UploaderBase
     }
 
     async uploadCategoriesType(categoriesType){
-        return await (await this.collection.add(classToPlain(categoriesType))).id
+        let categoriesTypeUid = await (await this.collection.add({})).id
+        categoriesType.uid = categoriesTypeUid;
+        await this.collection.doc(categoriesTypeUid).set(classToPlain(categoriesType))
+        return categoriesTypeUid
     }
 
-    async uploadCategoriesTypeList(categoriesTypeListNames){
-        let categoriesTypeList= []
-        for(let i = 0; i < categoriesTypeListNames.length; i++){
-           let uid = await this.uploadCategoriesType({name: categoriesTypeListNames[i]})
-           categoriesTypeList.push(new CategoryType(categoriesTypeListNames[i], uid));
+    async uploadCategoriesTypeList(categoriesTypeList){
+        for(let i = 0; i < categoriesTypeList.length; i++){
+           await this.uploadCategoriesType(categoriesTypeList[i])
         }
-        return categoriesTypeList;
     }
 }

@@ -1,19 +1,20 @@
 import UploaderBase from "./uploader-base";
-import { classToPlain } from 'class-transformer';
+import { firestore } from "firebase-admin";
+import { classToPlain } from "class-transformer";
 
 
 export default class UploaderCategories extends UploaderBase {
     constructor() {
-        super("categories");
+        super("types");
     }
 
-    async uploadCategory(category) {
-        await this.collection.add(classToPlain(category));
+    async uploadCategory(category, categoriesTypesUid) {
+        await this.collection.doc(categoriesTypesUid).collection("categories").add(classToPlain(category));
     }
 
-    async uploadCategoryList(categories) {
+    async uploadCategoryList(categories, categoriesTypesUid) {
         for(let i = 0; i < categories.length; i++) {
-            await this.uploadCategory(categories[i]);
+            await this.uploadCategory(categories[i], categoriesTypesUid);
         }
     }
 }
